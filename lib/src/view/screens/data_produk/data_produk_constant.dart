@@ -1,0 +1,1 @@
+// Menyimpan constanta pada page data_barang
