@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import '../view/screens/data_produk/data_produk.dart';
-import '../implement_widget/impl_custom_modal.dart';
-import '../implement_widget/impl_custom_list_item.dart';
-import '../implement_widget/impl_custom_list_item_navigation.dart';
 
 class AppRoutes {
   // Define route names as constants
@@ -22,8 +19,6 @@ class AppRoutes {
   static const String register = '/register';
   static const String riwayatPenjualan = '/riwayat-penjualan';
   static const String transaksi = '/transaksi';
-  static const String implementModal = '/implement-modal';
-  static const String implementListItem = '/implement-list-item';
 
   // Define routes mapping
   static Map<String, WidgetBuilder> getRoutes() {
@@ -44,8 +39,6 @@ class AppRoutes {
       register: (context) => const DataProduk(),
       riwayatPenjualan: (context) => const DataProduk(),
       transaksi: (context) => const DataProduk(),
-      implementModal: (context) => const ImplCustomModal(),
-      implementListItem: (context) => const ImplCustomListItem(),
     };
   }
 }

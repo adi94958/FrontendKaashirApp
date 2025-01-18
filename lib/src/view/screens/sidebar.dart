@@ -1,87 +1,76 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_sidebar.dart';
 import '../../routes/app_routes.dart';
-
 class Sidebar extends StatefulWidget {
-  const Sidebar({super.key});
-
+  final String title;
+  final Widget child;
+  const Sidebar({
+    super.key,
+    required this.title,
+    required this.child,
+  });
   @override
   State<Sidebar> createState() => _SidebarState();
 }
-
 class _SidebarState extends State<Sidebar> {
   int _selectedIndex = 0;
-  String _appBarTitle = 'Transaksi';
-  final FocusScopeNode _focusScopeNode = FocusScopeNode();
-
-  final List<String> _titles = const [
-    // 'Transaksi',
-    // 'Riwayat Transaksi',
-    // 'Kelola Produk',
-    // 'Data Pelanggan',
-    // 'Pengaturan',
-    'Implement Modal',
-    'Implement List Item'
+  final List<SidebarItem> _sidebarItems = [
+    SidebarItem(
+        title: 'Transaksi',
+        icon: Icons.attach_money,
+        routeName: AppRoutes.transaksi),
+    SidebarItem(
+        title: 'Riwayat Transaksi',
+        icon: Icons.history,
+        routeName: AppRoutes.riwayatPenjualan),
+    SidebarItem(
+        title: 'Kelola Produk',
+        icon: Icons.production_quantity_limits,
+        routeName: AppRoutes.dataProduk),
+    SidebarItem(
+        title: 'Transaksi',
+        icon: Icons.person,
+        routeName: AppRoutes.implementListItemProduct),
+    SidebarItem(
+        title: 'Form',
+        icon: Icons.settings,
+        routeName: AppRoutes.implementFilterForm),
+    SidebarItem(
+        title: 'Implement Modal',
+        icon: Icons.attach_money,
+        routeName: AppRoutes.implementModal),
+    SidebarItem(
+        title: 'Implement List Item',
+        icon: Icons.history,
+        routeName: AppRoutes.implementListItem),
   ];
-
-  final List<String> _routes = [
-    // AppRoutes.transaksi, // Contoh route untuk "Transaksi"
-    // AppRoutes.riwayatPenjualan,
-    // AppRoutes.dataProduk,
-    // AppRoutes.dataPelanggan,
-    // AppRoutes.pengaturan,
-    AppRoutes.implementModal,
-    AppRoutes.implementListItem,
-  ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      _appBarTitle = _titles[index];
     });
-    // Navigator.pop(context);
-    Navigator.pushNamed(context, _routes[index]);
+    Navigator.of(context).pop(); // Tutup drawer
+    Navigator.of(context).pushReplacementNamed(
+        _sidebarItems[index].routeName); // Navigasi ke rute yang dipilih
   }
-
-  List<SidebarItem> _buildSidebarItems() {
-    final List<IconData> icons = const [
-      Icons.attach_money,
-      Icons.history,
-      // Icons.production_quantity_limits,
-      // Icons.person,
-      // Icons.settings,
-    ];
-
-    return List.generate(
-      _routes.length,
-      (index) => SidebarItem(
-        title: _titles[index],
-        icon: icons[index],
-        routeName: _routes[index],
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _focusScopeNode.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView.builder(
-        padding: EdgeInsets.zero,
-        itemCount: _titles.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: Icon(Icons.menu),
-            title: Text(_titles[index]),
-            onTap: () => _onItemTapped(index),
-          );
-        },
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title), // Use the updated title
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
       ),
+      drawer: CustomSidebar(
+        items: _sidebarItems,
+        onItemTapped: _onItemTapped,
+      ),
+      backgroundColor: Colors.white,
+      body: widget.child,
     );
   }
 }

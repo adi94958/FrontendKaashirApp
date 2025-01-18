@@ -56,21 +56,9 @@ class _DataProdukState extends State<DataProduk> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Data Barang'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.notifications), // Ikon notifikasi
-              onPressed: () {
-                // Tambahkan logika untuk notifikasi
-                print('Notification clicked');
-              },
-            ),
-          ],
-        ),
-        drawer: Sidebar(),
+    return Sidebar(
+        title: 'Kelola Data Produk',
+        child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
             children: [
