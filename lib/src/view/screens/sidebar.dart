@@ -14,6 +14,7 @@ class Sidebar extends StatefulWidget {
 }
 class _SidebarState extends State<Sidebar> {
   int _selectedIndex = 0;
+  String _appBarTitle = 'Transaksi';
   final List<SidebarItem> _sidebarItems = [
     SidebarItem(
         title: 'Transaksi',
@@ -28,22 +29,15 @@ class _SidebarState extends State<Sidebar> {
         icon: Icons.production_quantity_limits,
         routeName: AppRoutes.dataProduk),
     SidebarItem(
-        title: 'Transaksi',
+        title: 'Data Pelanggan',
         icon: Icons.person,
-        routeName: AppRoutes.implementListItemProduct),
+        routeName: AppRoutes.dataPelanggan),
     SidebarItem(
-        title: 'Form',
+        title: 'Pengaturan',
         icon: Icons.settings,
-        routeName: AppRoutes.implementFilterForm),
-    SidebarItem(
-        title: 'Implement Modal',
-        icon: Icons.attach_money,
-        routeName: AppRoutes.implementModal),
-    SidebarItem(
-        title: 'Implement List Item',
-        icon: Icons.history,
-        routeName: AppRoutes.implementListItem),
+        routeName: AppRoutes.pengaturan),
   ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
